@@ -1,8 +1,8 @@
 {
-  "num_iterations": 1e6,
+  "num_iterations": 1e7,
   "num_cores": 4,
   "iter_low": 100,
-  "iter_high": 1e6,
+  "iter_high": 1e7,
   "cores_low": 1,
   "cores_high": 4
 }
