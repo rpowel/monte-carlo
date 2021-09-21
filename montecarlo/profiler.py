@@ -2,7 +2,7 @@ import time
 import json
 import numpy as np
 import matplotlib.pyplot as plt
-from calculate_pi import calculate_pi
+from calculatepi import calculate_pi
 
 
 with open('profiler_defaults.json', 'r') as defaults_json:

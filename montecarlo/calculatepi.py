@@ -1,4 +1,4 @@
-from monte_carlo import integrate
+from montecarlo import integrate
 from math import sqrt
 
 
