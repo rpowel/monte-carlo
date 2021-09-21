@@ -27,10 +27,9 @@ def integrate(func, lower_limit, upper_limit, num_iterations=1000, num_cores=1):
     num_points_per_core = int(num_iterations // num_cores)
     num_below_curve = Value('i', 0)
     processes = []
-    for _ in range(num_cores):
+    for i in range(num_cores):
         processes.append(Process(target=_calc_num_below_curve, args=(func, num_points_per_core, num_below_curve)))
-    for p in processes:
-        p.start()
+        processes[i].start()
     for p in processes:
         p.join()
     area = num_below_curve.value / num_iterations

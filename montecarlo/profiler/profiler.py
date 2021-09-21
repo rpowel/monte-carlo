@@ -2,10 +2,10 @@ import time
 import json
 import numpy as np
 import matplotlib.pyplot as plt
-from calculatepi import calculate_pi
+from montecarlo.tests.calculatepi import calculate_pi
 
 
-with open('profiler_defaults.json', 'r') as defaults_json:
+with open('./profiler_defaults.json', 'r') as defaults_json:
     DEFAULT_VALUES = json.load(defaults_json)
 
 

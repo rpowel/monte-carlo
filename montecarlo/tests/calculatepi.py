@@ -1,14 +1,14 @@
-from montecarlo import integrate
+from montecarlo.montecarlo import integrate
 from math import sqrt
 
 
-def quarter_circle(x):
+def _quarter_circle(x):
     y = sqrt(1 - x**2)
     return y
 
 
 def calculate_pi(num_iterations=10000, num_cores=1):
-    pi = 4 * integrate(quarter_circle, 0, 1, num_iterations=num_iterations, num_cores=num_cores)
+    pi = 4 * integrate(_quarter_circle, 0, 1, num_iterations=num_iterations, num_cores=num_cores)
     return pi
 
 
