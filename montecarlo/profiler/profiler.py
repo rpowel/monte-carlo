@@ -5,7 +5,7 @@ import matplotlib.pyplot as plt
 from montecarlo.tests.calculatepi import calculate_pi
 
 
-with open('./profiler_defaults.json', 'r') as defaults_json:
+with open('../profiler/profiler_defaults.json', 'r') as defaults_json:
     DEFAULT_VALUES = json.load(defaults_json)
 
 

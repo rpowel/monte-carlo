@@ -19,7 +19,9 @@ def _calc_num_below_curve(func, num_points, return_value):
 def _check_cpu_count(num_cores_requested):
     max_num_cores = os.cpu_count() - 1
     if num_cores_requested > max_num_cores:
-        raise Exception(f'Requested too many cores, can only grant {max_num_cores}')
+        raise Exception(f'Requested too many cores, can only grant {max_num_cores}.')
+    elif num_cores_requested < 1:
+        raise Exception(f'Requested too few cores, must request at least one core.')
 
 
 def integrate(func, lower_limit, upper_limit, num_iterations=1000, num_cores=1):
