@@ -71,6 +71,7 @@ def plot_all_time_curves(num_iter_list, time_list, num_cores_list, **kwargs):
         plot_single_time_curve(num_iter_list, times, num_cores)
 
     plt.xscale('log')
+    plt.yscale('log')
     plt.grid(alpha=0.4)
 
     plt.ylabel(kwargs.get('ylabel', 'Time (s)'))
