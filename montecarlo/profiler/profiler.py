@@ -2,7 +2,7 @@ import time
 import json
 import numpy as np
 import matplotlib.pyplot as plt
-from montecarlo.tests.calculatepi import calculate_pi
+from montecarlo.tests.calculate_pi import calculate_pi
 
 
 with open('../profiler/profiler_defaults.json', 'r') as defaults_json:
@@ -21,7 +21,7 @@ def time_function(func, **kwargs):
 
 def calc_relative_err(ideal_value, calculated_list):
     calculated_list = np.asarray(calculated_list)
-    return abs(calculated_list - ideal_value) / ideal_value
+    return abs((calculated_list - ideal_value) / ideal_value)
 
 
 def profile_num_cores(func, **kwargs):
@@ -83,7 +83,7 @@ def plot_all_time_curves(num_iter_list, time_list, num_cores_list, **kwargs):
     plt.show()
 
 
-def gen_cores_profile_plots(ideal_value, func_to_integrate, **kwargs):
+def gen_cores_profile_plots(func_to_integrate, **kwargs):
     num_iter_list, num_cores_list, values_list, times_list = profile_num_cores(func_to_integrate, **kwargs)
     plot_all_time_curves(
         num_iter_list,
@@ -95,9 +95,9 @@ def gen_cores_profile_plots(ideal_value, func_to_integrate, **kwargs):
     )
 
 
-def main():
-    gen_cores_profile_plots(np.pi, calculate_pi, cores_low=4, cores_high=10, iter_low=100, iter_high=1e7)
+def profile(func, lower_limit, upper_limit, **kwargs):
+    gen_cores_profile_plots(func, **kwargs)
 
 
 if __name__ == "__main__":
-    main()
+    profile(calculate_pi, 0, 1, cores_low=4, cores_high=10, iter_low=100, iter_high=1e7)

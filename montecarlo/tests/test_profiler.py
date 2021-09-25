@@ -11,6 +11,11 @@ class ProfilerTest(unittest.TestCase):
         none_value, time_value = profiler.time_function(sleep_two)
         self.assertAlmostEqual(time_value, 2, 1)
 
+    def test_calc_relative_err(self):
+        self.assertAlmostEqual(profiler.calc_relative_err(2, 0), 1)
+        self.assertAlmostEqual(profiler.calc_relative_err(-2, 0), 1)
+        self.assertAlmostEqual(profiler.calc_relative_err(100, 2), .98)
+
 
 if __name__ == "__main__":
     unittest.main()
