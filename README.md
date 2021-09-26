@@ -1,7 +1,7 @@
 # Monte Carlo
 Calculate the integral of arbitrary, finite, real functions over a finite interval using a
 Monte Carlo methodology. This method allows for selection of number of Monte Carlo guesses
-to use as well as the number of CPU cores to unitlize (up to <available_cores>-1).
+to use as well as the number of CPU cores to utilize (up to <available_cores>-1).
 
 ## Installation
 Clone git repo:
