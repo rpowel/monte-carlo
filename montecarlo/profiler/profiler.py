@@ -51,7 +51,7 @@ def profile_num_cores(func, **kwargs):
     return num_iter_list, num_cores_list, values_list, times_list
 
 
-def plot_err_curve(ideal_value, ind_var_list, value_list, **kwargs):
+def plot_err_curve(ideal_value, ind_var_list, value_list):
     err_list = calc_relative_err(ideal_value, value_list)
 
     plt.loglog(ind_var_list, err_list, c='C0', alpha=0.7, label='Monte-Carlo')
@@ -62,7 +62,7 @@ def plot_err_curve(ideal_value, ind_var_list, value_list, **kwargs):
     plt.show()
 
 
-def plot_single_time_curve(num_iter_list, time_list, num_cores, **kwargs):
+def plot_single_time_curve(num_iter_list, time_list, num_cores):
     plt.plot(num_iter_list, time_list, label=f'{num_cores} Cores')
 
 
@@ -95,9 +95,9 @@ def gen_cores_profile_plots(func_to_integrate, **kwargs):
     )
 
 
-def profile(func, lower_limit, upper_limit, **kwargs):
+def profile(func, **kwargs):
     gen_cores_profile_plots(func, **kwargs)
 
 
 if __name__ == "__main__":
-    profile(calculate_pi, 0, 1, cores_low=4, cores_high=10, iter_low=100, iter_high=1e7)
+    profile(calculate_pi, cores_low=1, cores_high=3, iter_low=100, iter_high=1e7)

@@ -45,6 +45,7 @@ area = integrate(
 ## Profiling
 Test the accuracy and speed curves of integration on your function:
 ```python
+from montecarlo import montecarlo
 from montecarlo.profiler import profiler
 
 # Integration limits
@@ -61,11 +62,19 @@ ITER_HIGH = 1e6  # Upper limit of iterations
 def function_to_integrate(x):
     return x**2
 
+    
+def calculate_area(num_iterations=1000, num_cores=1):
+    area = montecarlo.integrate(
+        function_to_integrate,
+        LOWER_LIMIT,
+        UPPER_LIMIT,
+        num_iterations=num_iterations,
+        num_cores=num_cores,
+    )
+    return area
 
 profiler.profile(
-    function_to_integrate,
-    LOWER_LIMIT,
-    UPPER_LIMIT,
+    calculate_area,
     cores_low=CORES_LOW,
     cores_high=CORES_HIGH,
     iter_low=ITER_LOW,
