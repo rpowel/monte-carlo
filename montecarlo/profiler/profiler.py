@@ -4,8 +4,11 @@ import numpy as np
 import matplotlib.pyplot as plt
 from montecarlo.tests.calculate_pi import calculate_pi
 
-
-with open('../profiler/profiler_defaults.json', 'r') as defaults_json:
+profiler_path = str(__file__)
+print('file: ', profiler_path)
+profiler_defaults_path = '/'.join(profiler_path.split('\\')[:-1]) + '/profiler_defaults.json'
+print('new path: ', profiler_defaults_path)
+with open(profiler_defaults_path, 'r') as defaults_json:
     DEFAULT_VALUES = json.load(defaults_json)
 
 

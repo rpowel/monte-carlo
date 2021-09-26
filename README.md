@@ -83,7 +83,7 @@ profiler.profile(
 ```
 
 ## Testing
-Unit tests are defined in `montecarlo/tests/`
+Unit tests are defined in `montecarlo/tests/` and can be run all together from the project root directory with:
 ```shell
-$ python -m montecarlo.tests
+$ python -m unittest discover montecarlo/tests
 ```
