@@ -1,5 +1,6 @@
 import os
 import random
+from typing import Callable
 from multiprocessing import Value, Process
 
 
@@ -19,7 +20,7 @@ def _gen_x_y(lower_limit: float, upper_limit: float) -> (float, float):
 
 
 def _calc_num_below_curve(
-        func: object,
+        func: Callable[[float], float],
         lower_limit: float,
         upper_limit: float,
         num_iterations: int,
@@ -27,7 +28,7 @@ def _calc_num_below_curve(
 ) -> None:
     """
     Calculate number of points below curve from total number of points to check.
-    :param func: object
+    :param func: Callable
     Function to integrate.
     :param lower_limit: float
     Lower limit of integration.
@@ -62,7 +63,7 @@ def _check_cpu_count(num_cores_requested: int) -> None:
 
 
 def integrate(
-        func: object,
+        func: Callable[[float], float],
         lower_limit: float,
         upper_limit: float,
         num_iterations: int = 1000,
@@ -70,7 +71,7 @@ def integrate(
 ) -> float:
     """
     Numerically integrate arbitrary function over finite range.
-    :param func:
+    :param func: Callable
     Function to integrate. Must take only one argument and return one value. i.e. f(x) return y.
     :param lower_limit: float
     Lower limit of integration.

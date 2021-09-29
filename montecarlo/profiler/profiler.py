@@ -1,16 +1,19 @@
 import time
 import json
+import os
+from typing import Iterable, Callable
 import numpy as np
 import matplotlib.pyplot as plt
 from montecarlo.tests.calculate_pi import calculate_pi
 
-profiler_path = str(__file__)
-profiler_defaults_path = '/'.join(profiler_path.split('\\')[:-1]) + '/profiler_defaults.json'
+
+profiler_path = os.path.dirname(os.path.abspath(__file__))
+profiler_defaults_path = os.path.join(profiler_path, 'profiler_defaults.json')
 with open(profiler_defaults_path, 'r') as defaults_json:
     DEFAULT_VALUES = json.load(defaults_json)
 
 
-def time_function(func, **kwargs):
+def time_function(func: Callable[..., float], **kwargs) -> (float, float):
     t1 = time.time()
     value = func(
         num_iterations=kwargs.get('num_iterations', DEFAULT_VALUES['num_iterations']),
@@ -20,12 +23,13 @@ def time_function(func, **kwargs):
     return value, abs(t2-t1)
 
 
-def calc_relative_err(ideal_value, calculated_list):
+def calc_relative_err(ideal_value: float, calculated_list: Iterable[float]) -> float:
     calculated_list = np.asarray(calculated_list)
     return abs((calculated_list - ideal_value) / ideal_value)
 
 
-def profile_num_cores(func, **kwargs):
+def profile_num_cores(func: Callable[..., float], **kwargs)\
+        -> (Iterable[int], Iterable[int], Iterable[Iterable[float]], Iterable[Iterable[float]]):
     iter_low = kwargs.get('iter_low', DEFAULT_VALUES['iter_low'])
     iter_high = kwargs.get('iter_high', DEFAULT_VALUES['iter_high'])
     num_iter_list = np.logspace(
@@ -52,7 +56,7 @@ def profile_num_cores(func, **kwargs):
     return num_iter_list, num_cores_list, values_list, times_list
 
 
-def plot_err_curve(ideal_value, ind_var_list, value_list):
+def plot_err_curve(ideal_value: float, ind_var_list: Iterable[int], value_list: Iterable[float]) -> None:
     err_list = calc_relative_err(ideal_value, value_list)
 
     plt.loglog(ind_var_list, err_list, c='C0', alpha=0.7, label='Monte-Carlo')
@@ -63,11 +67,20 @@ def plot_err_curve(ideal_value, ind_var_list, value_list):
     plt.show()
 
 
-def plot_single_time_curve(num_iter_list, time_list, num_cores):
+def plot_single_time_curve(
+        num_iter_list: Iterable[int],
+        time_list: Iterable[float],
+        num_cores: int
+) -> None:
     plt.plot(num_iter_list, time_list, label=f'{num_cores} Cores')
 
 
-def plot_all_time_curves(num_iter_list, time_list, num_cores_list, **kwargs):
+def plot_all_time_curves(
+        num_iter_list: Iterable[int],
+        time_list: Iterable[Iterable[float]],
+        num_cores_list: Iterable[int],
+        **kwargs
+) -> None:
     for i, (times, num_cores) in enumerate(zip(time_list, num_cores_list)):
         plot_single_time_curve(num_iter_list, times, num_cores)
 
@@ -84,8 +97,8 @@ def plot_all_time_curves(num_iter_list, time_list, num_cores_list, **kwargs):
     plt.show()
 
 
-def gen_cores_profile_plots(func_to_integrate, **kwargs):
-    num_iter_list, num_cores_list, values_list, times_list = profile_num_cores(func_to_integrate, **kwargs)
+def gen_cores_profile_plots(func: Callable[..., float], **kwargs) -> None:
+    num_iter_list, num_cores_list, values_list, times_list = profile_num_cores(func, **kwargs)
     plot_all_time_curves(
         num_iter_list,
         times_list,
@@ -96,7 +109,7 @@ def gen_cores_profile_plots(func_to_integrate, **kwargs):
     )
 
 
-def profile(func, **kwargs):
+def profile(func: Callable[..., float], **kwargs) -> None:
     gen_cores_profile_plots(func, **kwargs)
 
 

@@ -5,6 +5,7 @@ import time
 
 class ProfilerTest(unittest.TestCase):
     def test_time_function_timing(self):
+        # noinspection PyUnusedLocal
         def sleep_two(**kwargs):
             time.sleep(2)
             return None
