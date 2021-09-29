@@ -6,9 +6,9 @@ from multiprocessing import Value, Process
 def _gen_x_y(lower_limit: float, upper_limit: float) -> (float, float):
     """
     Generate random x, and y for given range of integration.
-    :param lower_limit:
+    :param lower_limit: float
     Lower limit of integration.
-    :param upper_limit:
+    :param upper_limit: float
     Upper limit of integration.
     :return: (x, y)
     """
@@ -22,25 +22,25 @@ def _calc_num_below_curve(
         func: object,
         lower_limit: float,
         upper_limit: float,
-        num_points: int,
+        num_iterations: int,
         return_value: type(Value),
 ) -> None:
     """
     Calculate number of points below curve from total number of points to check.
     :param func: object
     Function to integrate.
-    :param lower_limit:
+    :param lower_limit: float
     Lower limit of integration.
-    :param upper_limit:
+    :param upper_limit: float
     Upper limit of integration.
-    :param num_points:
-    Number of points to run through monte-carlo to check if below curve.
+    :param num_iterations: int
+    Number of iterations to run through monte-carlo to check if below curve.
     :param return_value: multiprocessing.Value
     Value containing number of points counted as below curve by all processors.
     :return: None
     """
     total = 0
-    for _ in range(num_points):
+    for _ in range(num_iterations):
         x, y = _gen_x_y(lower_limit, upper_limit)
         if func(x) >= y:
             total += 1
