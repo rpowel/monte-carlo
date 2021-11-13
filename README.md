@@ -6,12 +6,12 @@ to use as well as the number of CPU cores to utilize (up to <available_cores>-1)
 ## Installation
 Clone git repo:
 ```shell
-$ git clone https://github.com/rpowel/monte-carlo
+git clone https://github.com/rpowel/monte-carlo
 ```
 Install python dependencies:
 ```shell
-$ cd monte-carlo
-$ pip install -r requirements.txt
+cd monte-carlo
+pip install -r requirements.txt
 ```
 
 ## Usage
@@ -85,5 +85,5 @@ profiler.profile(
 ## Testing
 Unit tests are defined in `montecarlo/tests/` and can be run all together from the project root directory with:
 ```shell
-$ python -m unittest discover montecarlo/tests
+python -m unittest discover montecarlo/tests
 ```
